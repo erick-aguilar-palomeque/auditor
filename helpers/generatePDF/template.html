@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Hello world!</title>
+</head>
+
+<body>
+  <h1>Dictamen de rendimiento de equipo de computo</h1>
+  <p class="fecha">
+    Fecha: {{this.fecha}}</p>
+
+  <div>
+    <b>
+      <span>Dr. Carmen Carolina Ortega Hernández</span>
+    </b>
+    <br>
+    <span>Maestra de la materia Legislación forence </span>
+
+  </div>
+
+  <br>
+  <p>El presente dictamen se lleva a cabo con fines técnicos e informáticos, en virtud de conocer el rendimiento de los
+    equipos de cómputo utilizados en la facultad de negocios campus IV de la UNACH, ubicada en Tapachula Chiapas.</p>
+
+  <p>
+    El análisis fue llevado a cabo en base a un archivo con extensión .csv, proveido por la herramienta winAudit.
+  </p>
+
+  <p>
+    Los criterios de evaluación se describen a continuación:
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Parámetro</th>
+        <th>Excelente (18 - 24 pts)</th>
+        <th>Regular (10 - 18 pts)</th>
+        <th>Deficiente (6 - 9 pts)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Disco duro</td>
+        <td>(8pts) Mayor a 1TB</td>
+        <td>(4pts) 1TB</td>
+        <td>(2pts) Menor a 1TB</td>
+      </tr>
+      <tr>
+        <td rowspan="2">Microprocesador</td>
+        <td>(4pts) Mayor a 4 hilos</td>
+        <td>(2pts) 4 hilos</td>
+        <td>(1pts) Menor a hilos</td>
+      </tr>
+      <tr>
+        <td>(4pts) Mayor a 2500MHz</td>
+        <td>(2pts) 2000MHz - 2500MHz</td>
+        <td>(1pts) Menor a 2000MHz</td>
+      </tr>
+      <tr>
+        <td>Memoria RAM</td>
+        <td>(8pts) Mayor a 8GB</td>
+        <td>(4pts) 8GB</td>
+        <td>(2pts) Menor a 8GB</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Carácterísticas del equipo:</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Parámetro</th>
+        <th>Valor</th>
+        <th>Puntaje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Disco duro</td>
+        <td>{{this.caracteristicas.discoDuro.valor}}</td>
+        <td>{{this.caracteristicas.discoDuro.puntaje}}</td>
+      </tr>
+      <tr>
+        <td>Microprocesador</td>
+        <td>{{this.caracteristicas.microprocesador.hilo.valor}},
+          {{this.caracteristicas.microprocesador.velocidad.valor}}</td>
+        <td>{{this.caracteristicas.microprocesador.puntaje}}</td>
+      </tr>
+      <tr>
+        <td>Memoria RAM</td>
+        <td>{{this.caracteristicas.memoriaRAM.valor}}</td>
+        <td>{{this.caracteristicas.memoriaRAM.puntaje}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td></td>
+        <td>Total</td>
+        <td>{{this.caracteristicas.puntaje}}</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <p>Resultado obtenido: <span class="resultado">{{this.result}}</span></p>
+
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="atentamente-container">
+    <p class="atentamente"><b>Atentamente</b></p>
+    <p>Erick Aguilar Palomeque</p>
+    <p>Cesar Augusto López Rámirez</p>
+
+  </div>
+</body>
+<style>
+  body {
+    padding: 1rem 5rem;
+  }
+
+  .fecha {
+    text-align: right;
+  }
+
+  p,
+  span {
+    font-size: 30px;
+  }
+
+  .resultado {
+    font-size: 40px;
+  }
+
+  .atentamente-container * {
+    text-align: center;
+  }
+
+  .atentamente {
+    width: 100%;
+  }
+
+
+  table,
+  td {
+    font: 100% Arial, Helvetica, sans-serif;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: .5em;
+    border: 1px solid #fff;
+    font-size: 17px
+  }
+
+  tfoot tr,
+  tfoot td {
+    font-weight: bold;
+  }
+
+  th {
+    background: #328aa4 url(tr_back.gif) repeat-x;
+    color: #fff;
+  }
+
+  td {
+    background: #e5f1f4;
+  }
+
+  /* tablecloth styles */
+
+  tr.even td {
+    background: #e5f1f4;
+  }
+
+  tr.odd td {
+    background: #f8fbfc;
+  }
+
+  th.over,
+  tr.even th.over,
+  tr.odd th.over {
+    background: #4a98af;
+  }
+
+  th.down,
+  tr.even th.down,
+  tr.odd th.down {
+    background: #bce774;
+  }
+
+  th.selected,
+  tr.even th.selected,
+  tr.odd th.selected {}
+
+  td.over,
+  tr.even td.over,
+  tr.odd td.over {
+    background: #ecfbd4;
+  }
+
+  td.down,
+  tr.even td.down,
+  tr.odd td.down {
+    background: #bce774;
+    color: #fff;
+  }
+
+  td.selected,
+  tr.even td.selected,
+  tr.odd td.selected {
+    background: #bce774;
+    color: #555;
+  }
+
+  /* use this if you want to apply different styleing to empty table cells*/
+  td.empty,
+  tr.odd td.empty,
+  tr.even td.empty {
+    background: #fff;
+  }
+</style>
+
+</html>

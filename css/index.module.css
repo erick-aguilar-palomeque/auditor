@@ -1,0 +1,20 @@
+.pageHeader {
+    background-color: #40a9ff;
+    padding: 0.8rem;
+    display: flex;
+    justify-content: center;
+}
+.pageHeader h3 {
+    color: white;
+    font-weight: bold;
+}
+
+.pageContainer {
+    width: 80%;
+    padding: 2rem;
+    margin: auto;
+}
+
+.cardUploader {
+    width: 100%;
+}
