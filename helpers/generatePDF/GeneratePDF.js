@@ -46,7 +46,7 @@ GeneratePDF.createPDF = async (data) => {
 
     var document = {
         html: html,
-        data: datos,
+        data: data,
         path: `./public/files/${name}.pdf`,
         type: "",
     };
