@@ -26,6 +26,9 @@ const index = () => {
         if (response.data.done) {
             downloadPDF(response.data.pdfPath);
         }
+        else {
+            message.error(response.data.message);
+        }
         // import MyPDF from '../public/files/output.pdf';
 
     }

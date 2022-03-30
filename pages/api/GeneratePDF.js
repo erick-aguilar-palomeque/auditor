@@ -9,6 +9,10 @@ export default async (req, res) => {
     let response = await analizeCSV(csvCode);
     console.log({ response });
 
-    let pdfPath = await createPDF(response.result);
-    return res.json({ done: response.done, json: response.json, pdfPath });
+    let pdfPath = null;
+    if (response.done) {
+        pdfPath = await createPDF(response.result);
+    }
+
+    return res.json({ done: response.done, message: response.message, json: response.json, pdfPath });
 }

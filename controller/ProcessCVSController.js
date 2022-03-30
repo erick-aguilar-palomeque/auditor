@@ -1,4 +1,5 @@
 const csv = require('csvtojson');
+import moment from 'moment';
 
 let ProcessCSVController = {};
 
@@ -26,17 +27,22 @@ const getData = (json) => {
         totalHardDriveCapacity += capacity;
     });
 
+
+    let date = moment().format('DD/MM/YYYY HH:mm:ss');
+    // date.format("DD/MM/YYYY HH:mm:ss");
+
     return {
         cpu: {
             thread: cpuArray[14],
-            speed:  parseInt(cpuArray[5].split('MHz')[0]) 
+            speed: parseInt(cpuArray[5].split('MHz')[0])
         },
         hardDrive: {
             capacity: totalHardDriveCapacity
         },
         memory: {
             capacity: parseInt(RAMArray[2].split('MB')[0])
-        }
+        },
+        date
     }
 
 }
@@ -45,17 +51,17 @@ const getData = (json) => {
  * Evalua los datos de interes en base a las reglas de asociación
  * @param {} data Datos de interes previamente filtrados del csv 
  */
-const evalueData =(data)=>{
+const evalueData = (data) => {
 
-    var puntajeDiscoDuro= (data.hardDrive.capacity>931000?8:(data.hardDrive.capacity<465000?2:4));
-    var puntajeHiloProcesador= (data.cpu.thread>4?4:(data.cpu.thread<4?1:2));
-    var puntajeVelocidadProcesador=(data.cpu.speed>2500?4:(data.cpu.speed<2000?1:2));
-    var puntajeMemoriaRam= (data.memory.capacity>8192?8:(data.memory.capacity<8000?2:4));
-    let puntajeTotal=puntajeDiscoDuro + puntajeHiloProcesador + puntajeVelocidadProcesador + puntajeMemoriaRam;
+    var puntajeDiscoDuro = (data.hardDrive.capacity > 931000 ? 8 : (data.hardDrive.capacity < 465000 ? 2 : 4));
+    var puntajeHiloProcesador = (data.cpu.thread > 4 ? 4 : (data.cpu.thread < 4 ? 1 : 2));
+    var puntajeVelocidadProcesador = (data.cpu.speed > 2500 ? 4 : (data.cpu.speed < 2000 ? 1 : 2));
+    var puntajeMemoriaRam = (data.memory.capacity > 8192 ? 8 : (data.memory.capacity < 8000 ? 2 : 4));
+    let puntajeTotal = puntajeDiscoDuro + puntajeHiloProcesador + puntajeVelocidadProcesador + puntajeMemoriaRam;
 
     let datos = {
-        result: (puntajeTotal>17?'Excelente':(puntajeTotal<10?'Deficiente':'Regular')),
-        fecha: '17 marzo 2020',
+        result: (puntajeTotal > 17 ? 'Excelente' : (puntajeTotal < 10 ? 'Deficiente' : 'Regular')),
+        fecha: data.date,
         caracteristicas: {
             discoDuro: {
                 valor: data.hardDrive.capacity + ' MB',
@@ -97,13 +103,23 @@ ProcessCSVController.analizeCSV = async (csvCode) => {
         };
     }
 
-    /* Obtener datos */
-    let data = getData(json);
-    console.log('data');
-    console.log(data);
+    let result = null;
 
-    /* Llamar al metodo que evalua los datos y retornarlo */
-    let result= evalueData(data);
+    try {
+        /* Obtener datos */
+        console.log("antes de obtener la data");
+        let data = getData(json);
+        console.log('data');
+        console.log(data);
+
+        /* Llamar al metodo que evalua los datos y retornarlo */
+        result = evalueData(data);
+    }
+    catch (e) {
+        done = false;
+        message = "El CSV no contiene el formato esperado, extraiga uno nuevo desde WinAudit e intente de nuevo";
+        console.log("Errores al obtener la info del csv");
+    }
 
     return {
         done, message, result, json
